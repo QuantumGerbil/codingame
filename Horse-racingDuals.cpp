@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -14,22 +15,23 @@ int main()
 {
     int N;
     cin >> N; cin.ignore();
-    vector<int> horses;
+    int *horses;
+    horses = new int[N];    //must use int array. Vector too slow for final tests.
     for (int i = 0; i < N; i++) {
         int Pi;
         cin >> Pi; cin.ignore();
-        //cerr << "Pi: " << Pi << endl; //Slowed down program and caused timeout on test 3
-        horses.push_back(Pi);
+        horses[i] = Pi;
     }
 
-    sort(horses.begin(), horses.end()); //Sort horses
+    sort(horses, horses + N); //Sort horses
 
-    int difference = 0;
+    int difference = -1;
     for(int i = 0; i<N; i++){
         int a = horses[i];
         int b = horses[i+1];
-        int v = abs(a - b);
-        if(difference == 0) difference = v;
+        int v = horses[i] - horses[i+1];
+        if(v < 0) v = -v;
+        if(difference < 0) difference = v;
         if(v < difference){
             difference = v;
         }
